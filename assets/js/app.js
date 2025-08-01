@@ -1,8 +1,11 @@
-const ws = new WebSocket(`ws://${location.host}`);
+
+import { WS_PROTOCOL, WS_HOST, WS_PORT } from './../../config';
+
+
+const ws = new WebSocket(`${WS_PROTOCOL}://${WS_HOST}:${WS_PORT}`);
 
 const params = new URLSearchParams(window.location.search);
 const isAdmin = params.get('mode') === 'admin';
-
 
 const adminControls = document.getElementById('admin-controls');
 const dropArea = document.getElementById('drop-area');
