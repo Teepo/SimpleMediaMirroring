@@ -14,7 +14,11 @@ body {
 }
 
 #image-container img {
-    width: 100%;
+    display: block;
+    max-height: 100vh;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
 }
 
 #url-form {
