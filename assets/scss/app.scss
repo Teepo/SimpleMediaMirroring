@@ -1,7 +1,8 @@
 body {
     font-family: sans-serif;
     text-align: center;
-    background: #fafafa;
+    background: #333;
+    color: #fff;
 }
 
 #drop-area {
@@ -13,9 +14,7 @@ body {
 }
 
 #image-container img {
-    max-width: 90vw;
-    max-height: 70vh;
-    margin-top: 30px;
+    width: 100%;
 }
 
 #url-form {
