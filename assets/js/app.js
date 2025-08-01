@@ -1,8 +1,4 @@
-
-import { WS_PROTOCOL, WS_HOST, WS_PORT } from './../../config';
-
-
-const ws = new WebSocket(`${WS_PROTOCOL}://${WS_HOST}:${WS_PORT}`);
+import { socket } from './modules/ws.js';
 
 const params = new URLSearchParams(window.location.search);
 const isAdmin = params.get('mode') === 'admin';
@@ -28,19 +24,20 @@ if (isAdmin) {
     });
 
     dropArea.addEventListener('drop', e => {
+
+        const file = e.dataTransfer.files[0];
         
         e.preventDefault();
         
         dropArea.style.background = '#fafafa';
 
-        const formData = new FormData;
+        const reader = new FileReader();
 
-        formData.append('image', e.dataTransfer.files[0]);
-        
-        fetch('/upload', {
-            method: 'POST',
-            body: formData
-        });
+        reader.readAsArrayBuffer(file);
+
+        reader.onload = e => {
+            socket.emit('mirroring/media', e.target.result);
+        };
     });
 
     urlForm.addEventListener('submit', e => {
@@ -53,35 +50,50 @@ if (isAdmin) {
             return;
         }
 
-        fetch('/send-url', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ url })
-        });
+        socket.emit('mirroring/url', { url });
         
         urlInput.value = '';
     });
 
     clearBtn.addEventListener('click', () => {
-        fetch('/clear-image', { method: 'POST' });
+        socket.emit('mirroring/clear');
     });
 }
 
-ws.onmessage = msg => {
-    
-    const data = JSON.parse(msg.data);
+socket.on('message', data => {
 
-    console.log(container);
+    console.log('message', data);
+
+    const json = JSON.parse(data);
     
-    if (data.type === 'image') {
+    if (json.type === 'image') {
         const img = new Image();
         img.src = data.url;
         container.innerHTML = '';
         container.appendChild(img);
     }
-    else if (data.type === 'clear') {
-        container.innerHTML = '';
-    }
-};
+});
+
+socket.on('mirroring/media', data => {
+    
+    console.log(data);
+
+    const blob = new Blob([data]);
+
+    const img = new Image();
+    img.src = URL.createObjectURL(blob);
+
+    container.innerHTML = '';
+    container.appendChild(img);
+});
+
+socket.on('mirroring/url', data => {
+    const img = new Image();
+    img.src = data.url;
+    container.innerHTML = '';
+    container.appendChild(img);
+});
+
+socket.on('mirroring/clear', () => {
+    container.innerHTML = '';
+});
