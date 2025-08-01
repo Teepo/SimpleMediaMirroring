@@ -2,7 +2,10 @@ import { defineConfig } from 'vite';
 
 import basicSsl from '@vitejs/plugin-basic-ssl';
 
-export default defineConfig({
+const gitRepoName = 'SimpleMediaMirroring';
+
+export default defineConfig(({ mode }) => ({
+    base: mode === 'production' ? `/${gitRepoName}/` : '/',
     build: {
         assetsInlineLimit: 0,
     },
@@ -26,4 +29,4 @@ export default defineConfig({
             usePolling: true
         }
     },
-});
+}));

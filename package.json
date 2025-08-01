@@ -2,6 +2,7 @@
   "name": "SimpleMediaMirroring",
   "version": "1.0.0",
   "license": "ISC",
+  "homepage": "https://teepo.github.io/SimpleMediaMirroring/",
   "scripts": {
     "server": "node server/index.js",
     "dev": "vite",
