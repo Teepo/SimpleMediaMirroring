@@ -1,0 +1,40 @@
+body {
+    font-family: sans-serif;
+    text-align: center;
+    background: #fafafa;
+}
+
+#drop-area {
+    border: 3px dashed #aaa;
+    padding: 40px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 500px;
+}
+
+#image-container img {
+    max-width: 90vw;
+    max-height: 70vh;
+    margin-top: 30px;
+}
+
+#url-form {
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+input[type="text"] {
+    width: 300px;
+    padding: 8px;
+}
+
+button {
+    padding: 8px 12px;
+}
+
+#admin-controls {
+    display: none;
+}
