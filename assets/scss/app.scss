@@ -3,6 +3,7 @@ body {
     text-align: center;
     background: #333;
     color: #fff;
+    height: 100vh;
 }
 
 #drop-area {
@@ -13,12 +14,19 @@ body {
     max-width: 500px;
 }
 
-#image-container img {
-    display: block;
-    max-height: 100vh;
-    width: auto;
-    height: auto;
-    margin: 0 auto;
+#image-container {
+
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    img {
+        display: block;
+        max-height: 100vh;
+        width: auto;
+        height: auto;
+        margin: 0 auto;
+    }
 }
 
 #url-form {
