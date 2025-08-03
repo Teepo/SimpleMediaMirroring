@@ -75,8 +75,6 @@ socket.on('message', data => {
 });
 
 socket.on('mirroring/media', data => {
-    
-    console.log(data);
 
     const blob = new Blob([data]);
 
